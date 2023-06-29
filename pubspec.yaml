@@ -50,7 +50,7 @@ dependencies:
   flutter_image_compress: ^2.0.3
   image_picker: ^0.8.7+5
   table_calendar:
-  intl: ^0.17.0
+  intl: any
   swipe_cards: ^2.0.0+1
   toggle_switch: ^2.1.0
   location:

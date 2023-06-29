@@ -23,8 +23,8 @@ class ManageSubscriptionScreen extends BaseView<ManageSubscriptionController> {
             // keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
 
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              // mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Image.asset(
                   Res.dashboardPic,
@@ -154,7 +154,6 @@ class ManageSubscriptionScreen extends BaseView<ManageSubscriptionController> {
                 InkWell(
                   onTap: () {
                     getBoostDialogDetails(context);
-
                     //Get.offAndToNamed(Routes.dropdownScreen);
                   },
                   child: Container(
@@ -162,7 +161,7 @@ class ManageSubscriptionScreen extends BaseView<ManageSubscriptionController> {
                           gradient: LinearGradient(colors: [ColorsTheme.colPrimary, ColorsTheme.col8B0000]),
                           borderRadius: BorderRadius.circular(15),
                           border: Border.all(color: ColorsTheme.colWhite, width: 1)),
-                      margin: const EdgeInsets.only(left: 110, right: 20, top: 20),
+                      margin: const EdgeInsets.only( right: 20, top: 20),
                       padding: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
                       child: Column(children: [
                         Text(
@@ -383,7 +382,7 @@ class ManageSubscriptionScreen extends BaseView<ManageSubscriptionController> {
                         controller: controller.mobileController,
                         style: regularTextStyle(fontSize: 14.0, color: ColorsTheme.colBlack),
                         keyboardType: TextInputType.phone,
-                        maxLength: 5,
+                        // maxLength: 5,
                         // onChanged: (text) {
                         //   controller.estimatePriceChange(text);
                         // },
@@ -424,7 +423,7 @@ class ManageSubscriptionScreen extends BaseView<ManageSubscriptionController> {
                       ),
                     ),
                   ),
-                  controller.giftImage.value == ""
+                  controller.giftImage.value != ""
                       ? Padding(
                           padding: const EdgeInsets.only(top: 5),
                           child: Container(

@@ -213,10 +213,13 @@ Future saveData(Map<String, dynamic> otpData) async {
   return null;
 }
 
-Future giftStatus(Map<String, dynamic> otpData) async {
+Future giftStatus(/*Map<String, dynamic>*/ otpData) async {
   try {
-    FormData formData = FormData.fromMap(otpData);
-    Response response = await _dio.post(apiEndPoints.giftStatusModel, data: formData);
+    FormData formData = FormData();
+      formData.fields.add(MapEntry("number", otpData));
+
+    _dio.options.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+    Response response = await _dio.post(apiEndPoints.giftStatusModel,  data: formData);
     return GiftStatusModel.fromJson(json.decode(response.data));
   } catch (error, stacktrace) {
     catchErrorHandler();

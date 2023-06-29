@@ -101,7 +101,7 @@ class ManageSubscriptionController extends GetxController {
       Map<String, dynamic> mapData = {};
       mapData['number'] = mobileController.text;
 
-      GiftStatusModel giftstatus = await DioClient.base().giftStatus(mapData);
+      GiftStatusModel giftstatus = await DioClient.base().giftStatus(mobileController.text.toString());
       if (giftstatus.status!) {
         progressDialog.dismiss();
         giftImage.value = giftstatus.image! ?? "";
