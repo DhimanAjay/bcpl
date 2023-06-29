@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -131,38 +132,24 @@ class ManageSubscriptionScreen extends BaseView<ManageSubscriptionController> {
                                 },
                               )),
                         ],
-                      ),
-                      Center(
-                        child: GestureDetector(
-                          onTap: () {},
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              TextButton(
-                                onPressed: () {
-                                  _launchURL();
-                                },
-                                child: Text(
-                                  "terms_and_condition".tr,
-                                  style: TextStyle(
-                                      color: ColorsTheme.col4D4D4D,
-                                      decoration: TextDecoration.underline,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 12),
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 4,
-                              ),
-                              Text(
-                                "for_exciting_gifts".tr,
-                                style:
-                                    TextStyle(color: ColorsTheme.colWhite, fontWeight: FontWeight.bold, fontSize: 12),
-                              )
-                            ],
-                          ),
+                      ),     Center(
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 50, bottom: 30),
+                          child: Text.rich(TextSpan(children: [
+                            TextSpan(
+                                text: "Terms & Conditions".tr,
+                                style: regularTextStyle(fontSize: dimen16, color: ColorsTheme.colBlack)),
+                            TextSpan(
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    // Get.toNamed(Routes.register);
+                                  },
+                                text: " For Exciting Gifts".tr,
+                                style: mediumTextStyle(fontSize: dimen15, color: ColorsTheme.colBlack)),
+                          ])),
                         ),
                       ),
+
                     ])),
                 InkWell(
                   onTap: () {
@@ -179,7 +166,7 @@ class ManageSubscriptionScreen extends BaseView<ManageSubscriptionController> {
                       padding: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
                       child: Column(children: [
                         Text(
-                          "check_your_gift".tr,
+                          "Check Your Gift".tr,
                           style: TextStyle(fontSize: 14, color: ColorsTheme.colWhite),
                         ),
                       ])),
@@ -254,7 +241,7 @@ class ManageSubscriptionScreen extends BaseView<ManageSubscriptionController> {
                     padding: const EdgeInsets.only(top: 11, bottom: 11),
                     child: Center(
                       child: Text(
-                        "participate_now".tr,
+                        "Participate Now".tr,
                         style: regularTextStyle(fontSize: dimen14, color: ColorsTheme.colWhite),
                       ),
                     ),

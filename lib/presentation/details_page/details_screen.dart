@@ -75,7 +75,7 @@ class DetailsScreen extends GetView<DetailsController> {
                           ),
                           child: TextFormField(
                             controller: controller.imeiController,
-                            //keyboardType: TextInputType.emailAddress,
+                            keyboardType: TextInputType.number,
                             textInputAction: TextInputAction.done,
                             style: semiBoldTextStyle(fontSize: dimen14, color: ColorsTheme.colBlack),
                             cursorColor: ColorsTheme.colBlack,
@@ -169,7 +169,7 @@ class DetailsScreen extends GetView<DetailsController> {
                           ),
                           child: TextFormField(
                             controller: controller.numberController,
-                            //keyboardType: TextInputType.emailAddress,
+                            keyboardType: TextInputType.number,
                             textInputAction: TextInputAction.done,
                             style: semiBoldTextStyle(fontSize: dimen14, color: ColorsTheme.colBlack),
                             cursorColor: ColorsTheme.colBlack,
@@ -233,7 +233,7 @@ class DetailsScreen extends GetView<DetailsController> {
                           ),
                           child: TextFormField(
                             controller: controller.otpController,
-                            //keyboardType: TextInputType.emailAddress,
+                            keyboardType: TextInputType.number,
                             textInputAction: TextInputAction.done,
                             style: semiBoldTextStyle(fontSize: dimen14, color: ColorsTheme.colBlack),
                             cursorColor: ColorsTheme.colBlack,
@@ -328,7 +328,7 @@ class DetailsScreen extends GetView<DetailsController> {
                     ),
                     child: TextFormField(
                       controller: controller.pinController,
-                      //keyboardType: TextInputType.emailAddress,
+                      keyboardType: TextInputType.number,
                       textInputAction: TextInputAction.done,
                       style: semiBoldTextStyle(fontSize: dimen14, color: ColorsTheme.colBlack),
                       cursorColor: ColorsTheme.colBlack,
