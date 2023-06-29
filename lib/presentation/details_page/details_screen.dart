@@ -538,14 +538,11 @@ class DetailsScreen extends GetView<DetailsController> {
                   ),
                   InkWell(
                     onTap: () {
+
                       if (controller.nameController.text.trim().isNotEmpty &&
                           controller.imeiController.text.trim().isNotEmpty &&
                           controller.numberController.text.trim().isNotEmpty) {
-                        Get.toNamed(Routes.scratchCard, arguments: [
-                          controller.nameController.text,
-                          controller.imeiController.text,
-                          controller.numberController.text,
-                        ]);
+                        controller.saveDataToDb();
                       }
 
                       //Get.offAndToNamed(Routes.dropdownScreen);

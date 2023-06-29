@@ -21,6 +21,7 @@ class ManageSubscriptionController extends GetxController {
   // final dio = Dio();
   var isLoading = false.obs;
   var giftImage = "".obs;
+  var giftMessage = "".obs;
 
   var mobileController = TextEditingController();
   // var getDataModel = WinnerModel().obs;
@@ -104,6 +105,7 @@ class ManageSubscriptionController extends GetxController {
       if (giftstatus.status!) {
         progressDialog.dismiss();
         giftImage.value = giftstatus.image! ?? "";
+        giftMessage.value = giftstatus.message! ?? "";
         print("allgiftfetchsuccess ");
       } else {
         progressDialog.dismiss();

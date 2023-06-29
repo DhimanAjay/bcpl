@@ -11,6 +11,7 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../infrastructure/core/widget/progress_dialog.dart';
 import '../../infrastructure/model/otp_model.dart';
+import '../../infrastructure/navigation/routes.dart';
 import '../../infrastructure/network/dio_client.dart';
 import '../../infrastructure/shared/Utils/snackbar.util.dart';
 import '../../infrastructure/shared/app_exception_handle.dart';
@@ -120,6 +121,44 @@ class DetailsController extends GetxController {
       SendOtpModel sendOtp = await DioClient.base().verifyImei(mapData);
       if (sendOtp.status!) {
         progressDialog.dismiss();
+        SnackBarUtil.showSuccess(message: sendOtp.message.toString());
+
+        print("allgiftfetchsuccess ");
+      } else {
+        progressDialog.dismiss();
+        print("allgiftfail");
+        SnackBarUtil.showError(message: sendOtp.message.toString());
+      }
+    } on CustomHttpException catch (exception, code) {
+      progressDialog.dismiss();
+
+      AppExceptionHandle().showException(
+          exception.code, exception.response, exception.exception,
+          type: exception.code);
+    } catch (e) {
+      progressDialog.dismiss();
+
+      print("api_exception_allGift");
+      print(e);
+    }
+  }
+
+  saveDataToDb() async {
+    try {
+      progressDialog.show();
+      Map<String, dynamic> mapData = {};
+      mapData['name'] = nameController.text;
+      mapData['number'] = numberController.text.trim();
+      mapData['imeiNo'] = imeiController.text.trim();
+      print(mapData);
+      SendOtpModel sendOtp = await DioClient.base().saveData(mapData);
+      if (sendOtp.status!) {
+        progressDialog.dismiss();
+        Get.toNamed(Routes.scratchCard, arguments: [
+          nameController.text,
+          imeiController.text,
+          numberController.text,
+        ]);
         SnackBarUtil.showSuccess(message: sendOtp.message.toString());
 
         print("allgiftfetchsuccess ");

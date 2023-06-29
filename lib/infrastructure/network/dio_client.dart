@@ -202,6 +202,17 @@ Future verifyImei(Map<String, dynamic> otpData) async {
   return null;
 }
 
+Future saveData(Map<String, dynamic> otpData) async {
+  try {
+    FormData formData = FormData.fromMap(otpData);
+    Response response = await _dio.post(apiEndPoints.saveData, data: formData);
+    return SendOtpModel.fromJson(json.decode(response.data));
+  } catch (error, stacktrace) {
+    catchErrorHandler();
+  }
+  return null;
+}
+
 Future giftStatus(Map<String, dynamic> otpData) async {
   try {
     FormData formData = FormData.fromMap(otpData);

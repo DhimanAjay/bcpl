@@ -26,11 +26,12 @@ class ScratchCardController extends GetxController {
     mainScratch = ConfettiController(
       duration: const Duration(seconds: 2),
     );
-    giftDetailApi();
+
     name.value = Get.arguments[0];
     imei.value = Get.arguments[1];
     number.value = Get.arguments[2];
-
+    giftDetailApi();
+    sendGiftMessage();
     super.onInit();
   }
 
@@ -69,7 +70,7 @@ class ScratchCardController extends GetxController {
 
   sendGiftMessage() async {
     try {
-      progressDialog.show();
+      // progressDialog.show();
       Map<String, dynamic> mapData = {};
       mapData['name'] = name.value;
       mapData['number'] = number.value;

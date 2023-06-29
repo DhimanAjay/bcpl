@@ -9,5 +9,6 @@ class ApiConstants {
   var giftStatusModel = 'checkGiftStatus.php';
   var getGiftDetail = 'getGiftDetail.php';
   var giftMessage = 'sendGiftMessage.php';
+  var saveData = 'saveDataToDb.php';
 
 }

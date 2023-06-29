@@ -66,7 +66,7 @@ class ManageSubscriptionScreen extends BaseView<ManageSubscriptionController> {
                                           onTap: () {
                                             Get.toNamed(Routes.detailsPage);
                                           },
-                                          child:   Stack(
+                                          child: Stack(
                                             children: [
                                               Container(
                                                   width: Get.width,
@@ -77,7 +77,6 @@ class ManageSubscriptionScreen extends BaseView<ManageSubscriptionController> {
                                                       image: DecorationImage(
                                                           image: NetworkImage(controller.giftData[index].giftImage!),
                                                           fit: BoxFit.cover))),
-
                                               Positioned(
                                                 bottom: 0,
                                                 right: 0,
@@ -86,14 +85,14 @@ class ManageSubscriptionScreen extends BaseView<ManageSubscriptionController> {
                                                   width: Get.width,
                                                   height: 35,
                                                   decoration: BoxDecoration(
-                                                    borderRadius: BorderRadius.circular(20),color: Colors.red
-
-                                                  ),
-                                                  child:       Center(
-                                                    child: Text(controller.giftData[index].giftName!,
+                                                      borderRadius: BorderRadius.circular(20), color: Colors.red),
+                                                  child: Center(
+                                                    child: Text(
+                                                      controller.giftData[index].giftName!,
                                                       maxLines: 1,
                                                       overflow: TextOverflow.ellipsis,
-                                                      style: boldTextStyle(fontSize: dimen12, color: ColorsTheme.colWhite),
+                                                      style:
+                                                          boldTextStyle(fontSize: dimen12, color: ColorsTheme.colWhite),
                                                     ),
                                                   ),
                                                 ),
@@ -438,8 +437,32 @@ class ManageSubscriptionScreen extends BaseView<ManageSubscriptionController> {
                       ),
                     ),
                   ),
+                  controller.giftImage.value == ""
+                      ? Padding(
+                          padding: const EdgeInsets.only(top: 5),
+                          child: Container(
+                              width: double.infinity,
+                              // decoration: BoxDecoration(
+                              //     border: Border.all(color: ColorsTheme.colPrimary, width: 1),
+                              //     borderRadius: BorderRadius.all(Radius.circular(12))),
+                              child: Column(
+                                children: [
+                                  Text("controller.giftMessage.value",
+                                    textAlign: TextAlign.center,
+                                    style: mediumTextStyle(fontSize: 15.0, color: ColorsTheme.colBlack),
+                                  ),
 
-
+                                  Container(
+                                      width: Get.width/1.2,
+                                      height: Get.width / 2,
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(20),
+                                          image: DecorationImage(
+                                              image: NetworkImage(controller.giftImage.value), fit: BoxFit.cover))),
+                                ],
+                              )),
+                        )
+                      : Container(),
                 ],
               ),
             ));
