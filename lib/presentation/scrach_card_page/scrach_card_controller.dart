@@ -1,6 +1,5 @@
 import 'package:confetti/confetti.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
 import '../../infrastructure/core/widget/progress_dialog.dart';
 import '../../infrastructure/model/gift_detail_model.dart';
@@ -27,11 +26,14 @@ class ScratchCardController extends GetxController {
       duration: const Duration(seconds: 2),
     );
 
+    Future.delayed(Duration.zero, () async {
+      await giftDetailApi();
+
+    });
     name.value = Get.arguments[0];
     imei.value = Get.arguments[1];
     number.value = Get.arguments[2];
-    giftDetailApi();
-    sendGiftMessage();
+
     super.onInit();
   }
 
@@ -43,27 +45,19 @@ class ScratchCardController extends GetxController {
       mapData['number'] = number.value;
       mapData['imeiNo'] = imei.value;
 
+
       GiftDetailsModel sendOtp = await DioClient.base().giftDetail(mapData);
-      // if (sendOtp.status!) {
-        progressDialog.dismiss();
-        giftImage.value = sendOtp.giftImage ?? "";
-        giftDetail.value = sendOtp.giftDetail ?? "";
-      //   print("allgiftfetchsuccess ");
-      // } else {
-      //   progressDialog.dismiss();
-      //   print("allgiftfail");
-      //   SnackBarUtil.showError(message: sendOtp.message.toString());
-      // }
+      progressDialog.dismiss();
+      giftImage.value = sendOtp.giftImage ?? "";
+      giftDetail.value = sendOtp.giftDetail ?? "";
     } on CustomHttpException catch (exception, code) {
       progressDialog.dismiss();
-
-      AppExceptionHandle().showException(
-          exception.code, exception.response, exception.exception,
-          type: exception.code);
+      print("CustomHttpException ${exception}");
+      AppExceptionHandle().showException(exception.code, exception.response, exception.exception, type: exception.code);
     } catch (e) {
       progressDialog.dismiss();
 
-      print("api_exception_allGift");
+      print("api_exception_allGift $e");
       print(e);
     }
   }
@@ -77,22 +71,10 @@ class ScratchCardController extends GetxController {
       mapData['imeiNo'] = imei.value;
 
       GiftDetailsModel sendOtp = await DioClient.base().giftMessage(mapData);
-      // if (sendOtp.status!) {
-      //   progressDialog.dismiss();
-      //   giftImage.value = sendOtp.giftImage ?? "";
-      //   giftDetail.value = sendOtp.giftDetail ?? "";
-      //   print("allgiftfetchsuccess ");
-      // } else {
-      //   progressDialog.dismiss();
-      //   print("allgiftfail");
-      //   SnackBarUtil.showError(message: sendOtp.message.toString());
-      // }
     } on CustomHttpException catch (exception, code) {
       progressDialog.dismiss();
 
-      AppExceptionHandle().showException(
-          exception.code, exception.response, exception.exception,
-          type: exception.code);
+      AppExceptionHandle().showException(exception.code, exception.response, exception.exception, type: exception.code);
     } catch (e) {
       progressDialog.dismiss();
 
@@ -100,5 +82,4 @@ class ScratchCardController extends GetxController {
       print(e);
     }
   }
-
 }

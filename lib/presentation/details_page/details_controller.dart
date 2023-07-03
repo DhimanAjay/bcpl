@@ -1,12 +1,10 @@
+import 'dart:convert';
 import 'dart:io';
 
-import 'package:bcpl_fun_club_project/res.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../infrastructure/core/widget/progress_dialog.dart';
@@ -28,24 +26,29 @@ class DetailsController extends GetxController {
   final pinController = TextEditingController();
   final modelController = TextEditingController();
   final oldbrandController = TextEditingController();
-
+  var lat = 0.0.obs;
+  var long = 0.0.obs;
   ProgressDialog progressDialog = ProgressDialog();
   var userPhoto = ''.obs;
   var userPhoto2 = ''.obs;
   var fileName1 = ''.obs;
   var fileName2 = ''.obs;
+  var sendOtpmessage = false.obs;
 
   @override
   void onInit() {
     // scanBarCode();
+    getLatLong();
     super.onInit();
   }
+
   //  scanBarCode() async {
   //   String barcodeScanResult = await FlutterBarcodeScanner.scanBarcode(
   //       '#000000', Res.cancel, true, ScanMode.BARCODE);
   //   if (!mounted) return;
   //   scannedNumber.value = barcodeScanResult;
   // }
+
   sendOtp() async {
     try {
       progressDialog.show();
@@ -57,9 +60,10 @@ class DetailsController extends GetxController {
 
       SendOtpModel sendOtp = await DioClient.base().sendOtp(mapData);
       if (sendOtp.status!) {
+        SnackBarUtil.showSuccess(message: sendOtp.message.toString());
+        sendOtpmessage.value = true;
         progressDialog.dismiss();
-
-        print("allgiftfetchsuccess ");
+        print("allgiftfetchsuccess");
       } else {
         progressDialog.dismiss();
         print("allgiftfail");
@@ -67,13 +71,9 @@ class DetailsController extends GetxController {
       }
     } on CustomHttpException catch (exception, code) {
       progressDialog.dismiss();
-
-      AppExceptionHandle().showException(
-          exception.code, exception.response, exception.exception,
-          type: exception.code);
+      AppExceptionHandle().showException(exception.code, exception.response, exception.exception, type: exception.code);
     } catch (e) {
       progressDialog.dismiss();
-
       print("api_exception_allGift");
       print(e);
     }
@@ -145,11 +145,35 @@ class DetailsController extends GetxController {
 
   saveDataToDb() async {
     try {
+      File userFile = File(userPhoto.value);
+      List<int>imageByte = userFile.readAsBytesSync();
+      String base64Image = base64Encode(imageByte);
+
+      File imageFile2 = File(userPhoto2.value);
+      List<int>imageByte2 = imageFile2.readAsBytesSync();
+      String base64Image2 = base64Encode(imageByte2);
+
       progressDialog.show();
       Map<String, dynamic> mapData = {};
       mapData['name'] = nameController.text;
       mapData['number'] = numberController.text.trim();
       mapData['imeiNo'] = imeiController.text.trim();
+      mapData['address'] = addressController.text.trim();
+      mapData['pin'] = pinController.text.trim();
+      mapData['modelPurchase'] = modelController.text.trim();
+      mapData['oldPhoneBrand'] = oldbrandController.text.trim();
+      mapData['locationPoints'] =
+          "Latitude: ${lat.value}, Longitude: ${long.value}";
+      mapData['locationAddress'] = addressController.text.trim();
+      mapData['customerImageName'] = nameController.text.trim();
+      mapData['customerInvoiceImageName'] = nameController.text.trim();
+      mapData['customerImage'] = base64Image;
+      mapData['customerInvoiceImage'] = base64Image2;
+      mapData['brandNamebrandName'] = imeiController.text.trim();
+      mapData['modelName'] = modelController.text.trim();
+      mapData['manufacturerName'] = modelController.text.trim();
+
+      mapData['activationTime'] = imeiController.text.trim();
       print(mapData);
       SendOtpModel sendOtp = await DioClient.base().saveData(mapData);
       if (sendOtp.status!) {
@@ -181,7 +205,16 @@ class DetailsController extends GetxController {
     }
   }
 
-   getImage(ImageSource imageSource, context, imgType) async {
+  getLatLong() async {
+    Position position = await Geolocator.getCurrentPosition();
+    lat.value = position.latitude;
+    long.value = position.longitude;
+    print("lat.");
+    print(lat.value);
+    print(long.value);
+  }
+
+  getImage(ImageSource imageSource, context, imgType) async {
     final pickedFile = await ImagePicker().pickImage(source: imageSource);
     var date = DateTime.now();
     String imgPath = date.millisecondsSinceEpoch.toString();
@@ -189,18 +222,16 @@ class DetailsController extends GetxController {
       // Compress
       final dir = Directory.systemTemp;
       final targetPath = "${dir.absolute.path}/$imgPath.jpg";
-      var compressedFile = await FlutterImageCompress.compressAndGetFile(pickedFile.path, targetPath, quality: 90);
-      if(imgType == "customImage"){
+      var compressedFile = await FlutterImageCompress.compressAndGetFile(
+          pickedFile.path, targetPath,
+          quality: 90);
+      if (imgType == "customImage") {
         fileName1.value = pickedFile.name;
         userPhoto.value = compressedFile!.path;
-      }
-      else{
+      } else {
         fileName2.value = pickedFile.name;
         userPhoto2.value = compressedFile!.path;
       }
-
-
     }
   }
-
 }

@@ -5,8 +5,8 @@ class GiftDetailsModel {
   GiftDetailsModel({this.giftDetail, this.giftImage});
 
   GiftDetailsModel.fromJson(Map<String, dynamic> json) {
-    giftDetail = json['gift_detail'];
-    giftImage = json['gift_image'];
+    giftDetail = json['gift_detail'] ?? "";
+    giftImage = json['gift_image'] ?? "";
   }
 
   Map<String, dynamic> toJson() {

@@ -23,8 +23,8 @@ class ManageSubscriptionScreen extends BaseView<ManageSubscriptionController> {
             // keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
 
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              // mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Image.asset(
                   Res.dashboardPic,
@@ -47,7 +47,8 @@ class ManageSubscriptionScreen extends BaseView<ManageSubscriptionController> {
                         thickness: 2,
                       ),
                       Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
+                        // crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Obx(() => GridView.builder(
                                 itemCount: controller.giftData.length,
@@ -132,7 +133,8 @@ class ManageSubscriptionScreen extends BaseView<ManageSubscriptionController> {
                                 },
                               )),
                         ],
-                      ),     Center(
+                      ),
+                      Center(
                         child: Padding(
                           padding: const EdgeInsets.only(top: 50, bottom: 30),
                           child: Text.rich(TextSpan(children: [
@@ -149,26 +151,28 @@ class ManageSubscriptionScreen extends BaseView<ManageSubscriptionController> {
                           ])),
                         ),
                       ),
-
                     ])),
-                InkWell(
-                  onTap: () {
-                    getBoostDialogDetails(context);
-                    //Get.offAndToNamed(Routes.dropdownScreen);
-                  },
-                  child: Container(
-                      decoration: BoxDecoration(
-                          gradient: LinearGradient(colors: [ColorsTheme.colPrimary, ColorsTheme.col8B0000]),
-                          borderRadius: BorderRadius.circular(15),
-                          border: Border.all(color: ColorsTheme.colWhite, width: 1)),
-                      margin: const EdgeInsets.only( right: 20, top: 20),
-                      padding: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
-                      child: Column(children: [
-                        Text(
-                          "Check Your Gift".tr,
-                          style: TextStyle(fontSize: 14, color: ColorsTheme.colWhite),
-                        ),
-                      ])),
+                Center(
+                  child: InkWell(
+                    onTap: () {
+                      getBoostDialogDetails(context);
+
+                      //Get.offAndToNamed(Routes.dropdownScreen);
+                    },
+                    child: Container(
+                        decoration: BoxDecoration(
+                            gradient: LinearGradient(colors: [ColorsTheme.colPrimary, ColorsTheme.col8B0000]),
+                            borderRadius: BorderRadius.circular(15),
+                            border: Border.all(color: ColorsTheme.colWhite, width: 1)),
+                        margin: const EdgeInsets.only(top: 20),
+                        padding: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
+                        child: Column(children: [
+                          Text(
+                            "Check Your Gift".tr,
+                            style: TextStyle(fontSize: 14, color: ColorsTheme.colWhite),
+                          ),
+                        ])),
+                  ),
                 ),
                 const SizedBox(
                   height: 20,
@@ -361,96 +365,99 @@ class ManageSubscriptionScreen extends BaseView<ManageSubscriptionController> {
                 borderRadius: BorderRadius.circular(20),
               ),
               backgroundColor: ColorsTheme.colWhite,
-              title: Column(
-                children: [
-                  Container(
-                    margin: const EdgeInsets.only(bottom: 10, left: 5, right: 5),
-                    child: Text(
-                      "Check Your Gift Now".tr,
-                      textAlign: TextAlign.center,
-                      style: mediumTextStyle(fontSize: 15.0, color: ColorsTheme.colBlack),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 5),
-                    child: Container(
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                          border: Border.all(color: ColorsTheme.colPrimary, width: 1),
-                          borderRadius: BorderRadius.all(Radius.circular(12))),
-                      child: TextFormField(
-                        controller: controller.mobileController,
-                        style: regularTextStyle(fontSize: 14.0, color: ColorsTheme.colBlack),
-                        keyboardType: TextInputType.phone,
-                        // maxLength: 5,
-                        // onChanged: (text) {
-                        //   controller.estimatePriceChange(text);
-                        // },
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintStyle: regularTextStyle(fontSize: 14.0, color: ColorsTheme.colPrimary),
-                          fillColor: Colors.black,
-                          hintText: "Enter Your Contact No".tr,
-                          counterText: "",
-                          contentPadding: EdgeInsets.only(left: 10),
+              title: Obx(() => Column(
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.only(bottom: 10, left: 5, right: 5),
+                        child: Text(
+                          "Check Your Gift Now".tr,
+                          textAlign: TextAlign.center,
+                          style: mediumTextStyle(fontSize: 15.0, color: ColorsTheme.colBlack),
                         ),
                       ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 20),
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: InkWell(
-                        onTap: () {
-                          Get.back();
-                          if (controller.mobileController.text.isNotEmpty) {
-                            controller.checkYourGift();
-                          }
-                        },
+                      Padding(
+                        padding: const EdgeInsets.only(top: 5),
                         child: Container(
-                          width: 115,
-                          height: 33,
-                          decoration: const BoxDecoration(
-                              color: Colors.red, borderRadius: BorderRadius.all(Radius.circular(2))),
-                          child: Align(
-                              alignment: Alignment.center,
-                              child: Text(
-                                'Check'.tr,
-                                style: semiBoldTextStyle(fontSize: 14.0, color: ColorsTheme.colWhite),
-                              )),
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                              border: Border.all(color: ColorsTheme.colPrimary, width: 1),
+                              borderRadius: BorderRadius.all(Radius.circular(12))),
+                          child: TextFormField(
+                            controller: controller.mobileController,
+                            style: regularTextStyle(fontSize: 14.0, color: ColorsTheme.colBlack),
+                            keyboardType: TextInputType.phone,
+                            maxLength: 12,
+                            // onChanged: (text) {
+                            //   controller.estimatePriceChange(text);
+                            // },
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintStyle: regularTextStyle(fontSize: 14.0, color: ColorsTheme.colPrimary),
+                              fillColor: Colors.black,
+                              hintText: "Enter Your Contact No".tr,
+                              counterText: "",
+                              contentPadding: EdgeInsets.only(left: 10),
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                  controller.giftImage.value != ""
-                      ? Padding(
-                          padding: const EdgeInsets.only(top: 5),
-                          child: Container(
-                              width: double.infinity,
-                              // decoration: BoxDecoration(
-                              //     border: Border.all(color: ColorsTheme.colPrimary, width: 1),
-                              //     borderRadius: BorderRadius.all(Radius.circular(12))),
-                              child: Column(
-                                children: [
-                                  Text("controller.giftMessage.value",
-                                    textAlign: TextAlign.center,
-                                    style: mediumTextStyle(fontSize: 15.0, color: ColorsTheme.colBlack),
-                                  ),
-
-                                  Container(
-                                      width: Get.width/1.2,
-                                      height: Get.width / 2,
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(20),
-                                          image: DecorationImage(
-                                              image: NetworkImage(controller.giftImage.value), fit: BoxFit.cover))),
-                                ],
-                              )),
-                        )
-                      : Container(),
-                ],
-              ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 20),
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: InkWell(
+                            onTap: () {
+                              // Get.back();
+                              if (controller.mobileController.text.isNotEmpty) {
+                                controller.checkYourGift();
+                              }
+                            },
+                            child: Container(
+                              width: 115,
+                              height: 33,
+                              decoration: const BoxDecoration(
+                                  color: Colors.red, borderRadius: BorderRadius.all(Radius.circular(2))),
+                              child: Align(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'Check'.tr,
+                                    style: semiBoldTextStyle(fontSize: 14.0, color: ColorsTheme.colWhite),
+                                  )),
+                            ),
+                          ),
+                        ),
+                      ),
+                      controller.giftImage.value != ""
+                          ? Padding(
+                              padding: const EdgeInsets.only(top: 5),
+                              child: Container(
+                                  width: double.infinity,
+                                  // decoration: BoxDecoration(
+                                  //     border: Border.all(color: ColorsTheme.colPrimary, width: 1),
+                                  //     borderRadius: BorderRadius.all(Radius.circular(12))),
+                                  child: Column(
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(vertical: 10),
+                                        child: Text(
+                                          controller.giftMessage.value,
+                                          textAlign: TextAlign.center,
+                                          style: mediumTextStyle(fontSize: 15.0, color: ColorsTheme.colBlack),
+                                        ),
+                                      ),
+                                      Container(
+                                          width: Get.width / 1.2,
+                                          height: Get.width / 2,
+                                          decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(20),
+                                              image: DecorationImage(
+                                                  image: NetworkImage(controller.giftImage.value), fit: BoxFit.cover))),
+                                    ],
+                                  )),
+                            )
+                          : Container(),
+                    ],
+                  )),
             ));
   }
 }

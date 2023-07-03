@@ -218,7 +218,8 @@ class DetailsScreen extends GetView<DetailsController> {
                       ),
                     ],
                   ),
-                  Row(
+
+                  Obx(() => controller.sendOtpmessage.value ?     Row(
                     children: [
                       Expanded(
                         child: Container(
@@ -281,7 +282,7 @@ class DetailsScreen extends GetView<DetailsController> {
                         ),
                       ),
                     ],
-                  ),
+                  ) : Container()),
 
                   Container(
                     margin: const EdgeInsets.only(left: 10, top: 10, right: 10),
@@ -539,13 +540,14 @@ class DetailsScreen extends GetView<DetailsController> {
                   InkWell(
                     onTap: () {
 
-                      if (controller.nameController.text.trim().isNotEmpty &&
-                          controller.imeiController.text.trim().isNotEmpty &&
-                          controller.numberController.text.trim().isNotEmpty) {
-                        controller.saveDataToDb();
-                      }
+                      controller.saveDataToDb();
 
-                      //Get.offAndToNamed(Routes.dropdownScreen);
+                      // Get.toNamed(Routes.scratchCard, arguments: [
+                      //   controller.nameController.text,
+                      //   controller.imeiController.text,
+                      //   controller.numberController.text,
+                      // ]);
+
                     },
                     child: Container(
                       decoration: BoxDecoration(

@@ -204,8 +204,7 @@ Future verifyImei(Map<String, dynamic> otpData) async {
 
 Future saveData(Map<String, dynamic> otpData) async {
   try {
-    FormData formData = FormData.fromMap(otpData);
-    Response response = await _dio.post(apiEndPoints.saveData, data: formData);
+    Response response = await _dio.post(apiEndPoints.saveData,  data: json.encode(otpData));
     return SendOtpModel.fromJson(json.decode(response.data));
   } catch (error, stacktrace) {
     catchErrorHandler();
@@ -213,11 +212,10 @@ Future saveData(Map<String, dynamic> otpData) async {
   return null;
 }
 
-Future giftStatus(Map<String, dynamic>otpData) async {
+Future giftStatus(Map<String, dynamic> otpData) async {
   try {
     FormData formData = FormData.fromMap(otpData);
-
-    Response response = await _dio.post(apiEndPoints.giftStatusModel,  data: formData);
+    Response response = await _dio.post(apiEndPoints.giftStatusModel, data: formData);
     return GiftStatusModel.fromJson(json.decode(response.data));
   } catch (error, stacktrace) {
     catchErrorHandler();
@@ -225,18 +223,19 @@ Future giftStatus(Map<String, dynamic>otpData) async {
   return null;
 }
 
-Future giftDetail(Map<String, dynamic> otpData) async {
+Future giftDetail(Map<String, dynamic> mapData) async {
   try {
-    FormData formData = FormData.fromMap(otpData);
+    print("giftdetail");
+    FormData formData = FormData.fromMap(mapData);
     Response response = await _dio.post(apiEndPoints.getGiftDetail, data: formData);
-    return GiftDetailsModel.fromJson(json.decode(response.data));
+
+    return GiftDetailsModel.fromJson(json.decode(response.data)[0]);
   } catch (error, stacktrace) {
+    print("catchError $error");
     catchErrorHandler();
   }
   return null;
 }
-
-
 
 Future giftMessage(Map<String, dynamic> otpData) async {
   try {

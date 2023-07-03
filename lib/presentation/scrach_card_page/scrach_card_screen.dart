@@ -36,7 +36,7 @@ class ScratchCardScreen extends GetView<ScratchCardController> {
               const SizedBox(
                 height: 30,
               ),
-              Scratcher(
+              Obx(() => Scratcher(
                 brushSize: 50,
                 threshold: 30,
                 color: Colors.green,
@@ -54,12 +54,14 @@ class ScratchCardScreen extends GetView<ScratchCardController> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Image.asset(
-                        "assets/images/newimage.png",
-                        fit: BoxFit.contain,
-                        width: 150,
-                        height: 150,
-                      ),
+                      Container(
+                          width: 150,
+                          height: 150,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              image: DecorationImage(
+                                  image: NetworkImage(controller.giftImage.value), fit: BoxFit.cover))),
+
                       Column(
                         children: [
                           ConfettiWidget(
@@ -69,6 +71,7 @@ class ScratchCardScreen extends GetView<ScratchCardController> {
                             emissionFrequency: 0.05,
                             numberOfParticles: 100,
                             gravity: 0.05,
+                            // child: controller.sendGiftMessage(),
                             shouldLoop: false,
                             colors: const [
                               Colors.green,
@@ -84,8 +87,7 @@ class ScratchCardScreen extends GetView<ScratchCardController> {
                                 fontSize: 25,
                                 color: Colors.black),
                           ),
-                          const Text(
-                            "1 Lakh!",
+                           Text(controller.giftDetail.value.toString(),
                             style: TextStyle(
                                 fontWeight: FontWeight.w400,
                                 fontSize: 25,
@@ -96,7 +98,7 @@ class ScratchCardScreen extends GetView<ScratchCardController> {
                     ],
                   ),
                 ),
-              ),
+              )),
               InkWell(
                 onTap: () {
                   Get.toNamed(Routes.manageSubscription);
@@ -120,7 +122,7 @@ class ScratchCardScreen extends GetView<ScratchCardController> {
                   padding: const EdgeInsets.only(top: 11, bottom: 11),
                   child: Center(
                     child: Text(
-                      'go_to_home'.tr,
+                      'Go To Home'.tr,
                       style: regularTextStyle(
                           fontSize: dimen14, color: ColorsTheme.colWhite),
                     ),
