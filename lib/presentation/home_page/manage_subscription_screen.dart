@@ -87,7 +87,7 @@ class ManageSubscriptionScreen extends BaseView<ManageSubscriptionController> {
                                                   width: Get.width,
                                                   height: 35,
                                                   decoration: BoxDecoration(
-                                                      borderRadius: BorderRadius.circular(20), color: Colors.red),
+                                                      borderRadius:  BorderRadius.only(bottomLeft: Radius.circular(20),bottomRight: Radius.circular(20)), color: Colors.red),
                                                   child: Center(
                                                     child: Text(
                                                       controller.giftData[index].giftName!,

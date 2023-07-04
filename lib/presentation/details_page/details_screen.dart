@@ -14,6 +14,7 @@ class DetailsScreen extends GetView<DetailsController> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        height: Get.height,
         decoration: BoxDecoration(gradient: LinearGradient(colors: [ColorsTheme.colPrimary, ColorsTheme.col8B0000])),
         child: Stack(
           children: [
