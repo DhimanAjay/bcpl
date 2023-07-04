@@ -81,7 +81,10 @@ dependencies:
   flutter_launcher_icons: ^0.13.1
   location: ^4.4.0
   geolocator: ^9.0.1
-#  device_info_plus: ^7.0.0
+  device_info_plus:
+  geocoding: ^2.1.0
+
+
 
   #Get assets path for window platform
   path:

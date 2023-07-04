@@ -127,6 +127,10 @@ class DetailsScreen extends GetView<DetailsController> {
                       ),
                     ],
                   ),
+            Obx(() => controller.imeiVerified.value ?  Text(
+              "Verified",
+              style: regularTextStyle(fontSize: dimen14, color: ColorsTheme.colWhite),
+            ) : Container()),
                   // Row(
                   //   children: [
                   //     Expanded(

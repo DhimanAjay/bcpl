@@ -50,7 +50,8 @@ class ManageSubscriptionScreen extends BaseView<ManageSubscriptionController> {
                         // crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Obx(() => GridView.builder(
+                          Obx(() =>
+                              GridView.builder(
                                 itemCount: controller.giftData.length,
                                 shrinkWrap: true,
                                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -66,7 +67,9 @@ class ManageSubscriptionScreen extends BaseView<ManageSubscriptionController> {
                                       children: [
                                         InkWell(
                                           onTap: () {
-                                            Get.toNamed(Routes.detailsPage);
+                                            controller.checkLocation();
+
+                                            // Get.toNamed(Routes.detailsPage);
                                           },
                                           child: Stack(
                                             children: [
@@ -87,14 +90,15 @@ class ManageSubscriptionScreen extends BaseView<ManageSubscriptionController> {
                                                   width: Get.width,
                                                   height: 35,
                                                   decoration: BoxDecoration(
-                                                      borderRadius:  BorderRadius.only(bottomLeft: Radius.circular(20),bottomRight: Radius.circular(20)), color: Colors.red),
+                                                      borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20),
+                                                          bottomRight: Radius.circular(20)), color: Colors.red),
                                                   child: Center(
                                                     child: Text(
                                                       controller.giftData[index].giftName!,
                                                       maxLines: 1,
                                                       overflow: TextOverflow.ellipsis,
                                                       style:
-                                                          boldTextStyle(fontSize: dimen12, color: ColorsTheme.colWhite),
+                                                      boldTextStyle(fontSize: dimen12, color: ColorsTheme.colWhite),
                                                     ),
                                                   ),
                                                 ),
@@ -201,34 +205,35 @@ class ManageSubscriptionScreen extends BaseView<ManageSubscriptionController> {
                         thickness: 2,
                       ),
                       Expanded(
-                        child: Obx(() => ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: controller.giftWinner.length,
-                            physics: ScrollPhysics(),
-                            itemBuilder: (BuildContext context, int index) {
-                              return Container(
-                                  decoration: BoxDecoration(
-                                      color: ColorsTheme.colWhite,
-                                      borderRadius: BorderRadius.circular(15),
-                                      border: Border.all(color: ColorsTheme.colWhite, width: 1)),
-                                  margin: const EdgeInsets.only(top: 10, left: 20, right: 20),
-                                  padding: const EdgeInsets.only(left: 10, top: 15, bottom: 15),
-                                  child: Text(
-                                    controller.giftWinner[index].winnersName ?? "",
-                                    // controller.getDataModel.value.message![index]
-                                    //     .winnersName
-                                    //     .toString(),
-                                    style: TextStyle(color: ColorsTheme.colBlack),
-                                  ));
-                            })),
+                        child: Obx(() =>
+                            ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: controller.giftWinner.length,
+                                physics: ScrollPhysics(),
+                                itemBuilder: (BuildContext context, int index) {
+                                  return Container(
+                                      decoration: BoxDecoration(
+                                          color: ColorsTheme.colWhite,
+                                          borderRadius: BorderRadius.circular(15),
+                                          border: Border.all(color: ColorsTheme.colWhite, width: 1)),
+                                      margin: const EdgeInsets.only(top: 10, left: 20, right: 20),
+                                      padding: const EdgeInsets.only(left: 10, top: 15, bottom: 15),
+                                      child: Text(
+                                        controller.giftWinner[index].winnersName ?? "",
+                                        // controller.getDataModel.value.message![index]
+                                        //     .winnersName
+                                        //     .toString(),
+                                        style: TextStyle(color: ColorsTheme.colBlack),
+                                      ));
+                                })),
                       )
                     ],
                   ),
                 ),
                 InkWell(
                   onTap: () {
-                    Get.toNamed(Routes.detailsPage);
-
+                    // Get.toNamed(Routes.detailsPage);
+                    controller.checkLocation();
                     //Get.offAndToNamed(Routes.dropdownScreen);
                   },
                   child: Container(
@@ -239,7 +244,10 @@ class ManageSubscriptionScreen extends BaseView<ManageSubscriptionController> {
                       border: Border.all(color: Colors.white54, width: 1),
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    width: MediaQuery.of(context).size.width,
+                    width: MediaQuery
+                        .of(context)
+                        .size
+                        .width,
                     margin: const EdgeInsets.only(left: 40, right: 40, top: 20, bottom: 20),
                     padding: const EdgeInsets.only(top: 11, bottom: 11),
                     child: Center(
@@ -287,7 +295,8 @@ class ManageSubscriptionScreen extends BaseView<ManageSubscriptionController> {
     showDialog<String>(
         context: context,
         barrierDismissible: true,
-        builder: (BuildContext context) => Center(
+        builder: (BuildContext context) =>
+            Center(
               child: Wrap(
                 alignment: WrapAlignment.center,
                 crossAxisAlignment: WrapCrossAlignment.center,
@@ -360,12 +369,14 @@ class ManageSubscriptionScreen extends BaseView<ManageSubscriptionController> {
   getBoostDialogDetails(context) {
     return showDialog(
         context: context,
-        builder: (BuildContext context) => AlertDialog(
+        builder: (BuildContext context) =>
+            AlertDialog(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
               ),
               backgroundColor: ColorsTheme.colWhite,
-              title: Obx(() => Column(
+              title: Obx(() =>
+                  Column(
                     children: [
                       Container(
                         margin: const EdgeInsets.only(bottom: 10, left: 5, right: 5),
@@ -429,32 +440,32 @@ class ManageSubscriptionScreen extends BaseView<ManageSubscriptionController> {
                       ),
                       controller.giftImage.value != ""
                           ? Padding(
-                              padding: const EdgeInsets.only(top: 5),
-                              child: Container(
-                                  width: double.infinity,
-                                  // decoration: BoxDecoration(
-                                  //     border: Border.all(color: ColorsTheme.colPrimary, width: 1),
-                                  //     borderRadius: BorderRadius.all(Radius.circular(12))),
-                                  child: Column(
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsets.symmetric(vertical: 10),
-                                        child: Text(
-                                          controller.giftMessage.value,
-                                          textAlign: TextAlign.center,
-                                          style: mediumTextStyle(fontSize: 15.0, color: ColorsTheme.colBlack),
-                                        ),
-                                      ),
-                                      Container(
-                                          width: Get.width / 1.2,
-                                          height: Get.width / 2,
-                                          decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(20),
-                                              image: DecorationImage(
-                                                  image: NetworkImage(controller.giftImage.value), fit: BoxFit.cover))),
-                                    ],
-                                  )),
-                            )
+                        padding: const EdgeInsets.only(top: 5),
+                        child: Container(
+                            width: double.infinity,
+                            // decoration: BoxDecoration(
+                            //     border: Border.all(color: ColorsTheme.colPrimary, width: 1),
+                            //     borderRadius: BorderRadius.all(Radius.circular(12))),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 10),
+                                  child: Text(
+                                    controller.giftMessage.value,
+                                    textAlign: TextAlign.center,
+                                    style: mediumTextStyle(fontSize: 15.0, color: ColorsTheme.colBlack),
+                                  ),
+                                ),
+                                Container(
+                                    width: Get.width / 1.2,
+                                    height: Get.width / 2,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20),
+                                        image: DecorationImage(
+                                            image: NetworkImage(controller.giftImage.value), fit: BoxFit.cover))),
+                              ],
+                            )),
+                      )
                           : Container(),
                     ],
                   )),
